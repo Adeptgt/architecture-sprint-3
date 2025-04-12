@@ -1,0 +1,41 @@
+
+@startuml
+title  Warmhouse Container Diagram
+
+top to bottom direction
+
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Component.puml
+
+Person(user, "Пользователь", "Пользователь приложения")
+System(warmhouse, "Тёплый дом", "Управление устройствами, отработка сценариев и отбражение информации")
+
+Container_Boundary(warmhouse, "Тёплый дом") {
+  Container(WebApp, "Web Application", "Go, VueJS", "Взаимодействие с пользователем")
+  Container(controll_app, "Control application", "Go", "Формирует команды для оборудования на основе сценариев и команд пользователей, сохраняет текущее состояние оборудования в БД")
+  Container(Device_Database, "Database", "PostgreSQL", "Хранение конфигурационной информации и исторических  данных  оборудования.")
+    Container(Sensors_Database, "Database", "PostgreSQL", "Хранение конфигурационной информации и исторических  данных  от датчиков.")
+
+  Container(queue, "Kafka", "Kafka", "Временное поступающих команд и данных с датчиков ")
+  Container(devices_manager, "Devices Manager", "Go", "непосредвенное взаимодействие с оборудованием, отправка команд")
+  Container(sensors_manager, "Sensors Manager", "Go", "Опрос датчиков и сохранение данной информации в БД")
+
+Rel(WebApp, queue, "Отправка команд из приложения")
+Rel(WebApp, devices_manager, "Получение данных о статусе оборудования")
+Rel(WebApp, sensors_manager, "Получение данных с датчиков")
+Rel(devices_manager,queue , "Получение информации об сполнении комнад и публикация результата их выполнения")
+Rel(devices_manager,Device_Database ,"Сохранение информации о текущем статусе системы")
+Rel(sensors_manager,Sensors_Database,"Сохранение информации с датчиков")
+Rel(controll_app,sensors_manager, "Получение информации о показаниях датчиков")
+Rel(controll_app,sensors_manager, "Получение информации о статусе оборудования")
+Rel(controll_app, queue, "Отправка команд  по результатм работы сценариев и приавил.")
+}
+
+System_Ext(Device_api, " Devices Third-Party API", "API оборудования находящегося под управлением системы", "Используются разные форматы  REST API,MQTT и т.д.")
+System_Ext(Sensors_api, "Sensors Third-Party API", "API датчиков находящихся под управлением системы", "Используются разные форматы  REST API,MQTT и т.д.")
+
+Rel(user, WebApp, "Работа через Web интерфейс")
+Rel(devices_manager,Device_api,"Отправка команд и получение статуса исполнения")
+Rel(sensors_manager,Sensors_api,"Опрос датчиков")
+
+@enduml
+

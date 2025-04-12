@@ -1,0 +1,107 @@
+@startuml
+title FitLife Membership Management Code Diagram
+
+top to bottom direction
+
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Component.puml
+
+class User {
+  +int user_id
+  + String name
+  + String email 
+  + List <House> house
+  + void register()
+  + void login()
+  + void addhouse()
+}
+
+class House{  
++ int house_id
++ int user_id
++ String address
++ String description
++ List <Room> room
+  +void addRoom()
+  +void removeRoom()
+}
+class Room{
++ int room_id
++ int house_id    
++ String room_name
++ String description
++ List <Sensor> sensor
++ List <Device> device
++ void NewRoom()
++ void DeleteRoom()
++ void addDevice()
++ void removeDevice()
++ void addSensor()
++ void removeSensor()
+}
+
+class Device {
+  + iny device_id
+  + int device_type_id
+  + int room_id
+  + String ststus
+  + String device_name
+  + Sring serial_number
+  + String vendor
+  + void add_device()
+  + void get_status()
+  + void set_action()
+}
+class DeviceType {
+  + int device_type_id
+  + List allowed_actions  
+  + String device_type_name
+  + void addDeviceType()
+}
+
+
+
+class Sensor {
+  + iny sensor_id
+  + int sensor_type_id
+  + int room_id
+  + String sensor_name
+  + Sring serial_number
+  + String vendor
+  + void add_sensor()
+
+
+}
+
+class SensorType {
+  + int sensor_type_id
+  + String sensor_type_name
+  + void addSensorType()
+
+}
+
+class SensorTelemetryData {
+  + timestamp clock
+  + int value 
+  + data_type
+  + void get_last_data()
+  + void get_history()
+}
+
+class DeviceHistoryData {
+  + timestamp clock
+  + String status
+  + String ext_data
+  + void get_history()
+
+}
+
+
+User "1" -- "0..*" House : Has
+House "1" -- "0..*" Room : Has
+Room "1" -- "0..*" Device : Has
+Room "1" -- "0..*" Sensor : Has
+Sensor "1" -- "0..*" SensorType : include
+Device "1" -- "0..*" DeviceType : include
+Sensor "1" -- "0..*" SensorTelemetryData : Has
+Device "1" -- "0..*" DeviceHistoryData : Has
+@enduml

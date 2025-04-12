@@ -1,0 +1,19 @@
+@startuml
+title Warmhouse Context Diagram
+
+top to bottom direction
+
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Component.puml
+
+Person(user, "Пользователь", "Пользователь приложения")
+System(FitLifeSystem, "Тёплый дом", "Консолидация данных о статусе оборудования и данных с датчиков, визуализация ")
+
+System_Ext(Device_api, " Devices Third-Party API", "API оборудования находящегося под управлением системы", "Используются разные форматы  REST API,MQTT и т.д.")
+System_Ext(Sensors_api, "Sensors Third-Party API", "API оборудования находящегося под управлением системы", "Используются разные форматы  REST API,MQTT и т.д.")
+
+
+Rel(user, FitLifeSystem, "Взаимодействие с сисстемой через Web интерфейс")
+Rel(FitLifeSystem,Device_api,"Команды управления")
+Rel(FitLifeSystem,Sensors_api,"Получения информации с сдатчиков")
+
+@enduml 
