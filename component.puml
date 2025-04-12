@@ -1,4 +1,3 @@
-```puml
 
 @startuml
 title warmhouse Sensors Manager Component Diagram
@@ -30,5 +29,3 @@ Rel(SensorsСontroller,Sensors_Database,"Сохранение результат
 Rel(ScheduleController,Sensors_Database,"Задание частоты опроса")
 Rel(SensorsСontroller,Sensors_api,"Опрос датчиков")
 @enduml
-
-```puml
