@@ -1,0 +1,34 @@
+```puml
+
+@startuml
+title warmhouse Sensors Manager Component Diagram
+
+top to bottom direction
+
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Component.puml
+
+System_Boundary(warmhouse, "Тёплый дом") {
+  Container(sensors_manager, "Sensors Manager", "Go", "Опрос датчиков и сохранение данной информации в БД")
+  Container(Sensors_Database, "Database", "PostgreSQL", "Stores user data and schedules")
+ Container(WebApp, "Web Application", "Go, VueJS", "Взаимодействие с пользователем")
+ Container(controll_app, "Control application", "Go", "Формирует команды для оборудования на основе сценариев и команд пользователей, сохраняет текущее состояние оборудования в БД")
+}
+
+Container(sensors_manager, "Sensors Manager", "Go", "Опрос датчиков и сохранение данной информации в БД") {
+  Component(APIController, "APIController", "Предоставляет API  для работы с датчиками")
+  Component(SensorsСontroller, "SensorsСontroller", "Опрос датчиков  c  учетом вендора и формата")
+  Component(ScheduleController, "ScheduleController", "Контроль частоты опроса датчиков")
+  
+}
+
+System_Ext(Sensors_api, "Sensors Third-Party API", "API датчиков находящихся под управлением системы", "Используются разные форматы  REST API,MQTT и т.д.")
+
+Rel(WebApp,APIController,"Получение данных собранных датчиками")
+Rel(controll_app,APIController,"Получение данных собранных датчиками")
+Rel(APIController,Sensors_Database,"Получение данных")
+Rel(SensorsСontroller,Sensors_Database,"Сохранение результатов опроса датчиков")
+Rel(ScheduleController,Sensors_Database,"Задание частоты опроса")
+Rel(SensorsСontroller,Sensors_api,"Опрос датчиков")
+@enduml
+
+```puml
