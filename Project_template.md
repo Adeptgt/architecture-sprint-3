@@ -59,7 +59,7 @@
 ### 5. Визуализация контекста системы — диаграмма С4
 
 
-[Диаграама контекста С4]()
+[Диаграама контекста С4](https://github.com/Adeptgt/architecture-sprint-3/blob/warmhouse/context.puml)
 
 
 # Задание 2. Проектирование микросервисной архитектуры
@@ -68,20 +68,20 @@
 
 **Диаграмма контейнеров (Containers)**
 
-[Диаграама контейнеров С4]()
+[Диаграама контейнеров С4](https://github.com/Adeptgt/architecture-sprint-3/blob/warmhouse/container.puml)
 
 **Диаграмма компонентов (Components)**
 
-[Диаграама компонентов С4]()
+[Диаграама компонентов С4](https://github.com/Adeptgt/architecture-sprint-3/blob/warmhouse/component.puml)
 
 **Диаграмма кода (Code)**
 
-[Диаграама ккода]()
+[Диаграама кода](https://github.com/Adeptgt/architecture-sprint-3/blob/warmhouse/code.puml)
 
 
 # Задание 3. Разработка ER-диаграммы
 
-Добавьте сюда ER-диаграмму. Она должна отражать ключевые сущности системы, их атрибуты и тип связей между ними.
+[ER-диаграмма](https://github.com/Adeptgt/architecture-sprint-3/blob/warmhouse/code.puml)
 
 Четвёртое задание — дополнительное. Его можно сделать по желанию. Чтобы ревьюер быстрее проверил ваше решение, укажите, сделали вы это задание или нет. Для этого оставьте нужный эмодзи около заголовка задания:
 
